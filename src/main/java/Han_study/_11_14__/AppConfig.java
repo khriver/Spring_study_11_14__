@@ -14,10 +14,14 @@ import org.springframework.context.annotation.Configuration;
 
 
 
-@Configuration // java기반의 config
+@Configuration // java기반의 config //singleton 컨테이너를 유지시켜주는 아주 마법의 어노테이션!!!!!!!!
 public class AppConfig {
+    //@Bean memberRepository -> new MemoryMemberRepository()
+    //@Bean orderService     -> new MemoryMemberRepository()
+
     @Bean
     public MemberRepository memberRepository(){
+        System.out.println("call AppConfig.memberRepository");
         return new MemoryMemberRepository();
     }
     @Bean
@@ -26,10 +30,12 @@ public class AppConfig {
     }
     @Bean
     public MemberService memberService(){
+        System.out.println("call AppConfig.memberService");
         return new MemberServiceImpl(memberRepository());
     }
     @Bean
     public OrderService orderService(){
+        System.out.println("call AppConfig.orderService");
         return new OrderServiceImpl(memberRepository(), discountPolicy());
     }
 
